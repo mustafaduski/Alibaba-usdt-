@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html lang="ku">
+<html lang="ku" dir="ltr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AutoSteam Global</title>
+    <title>AutoSteam | Global Store</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
     <header class="top-nav">
         <div class="logo">Auto<span>Steam</span></div>
-        <div class="search-container">
+        <div class="search-box">
             <input type="text" id="mainSearch" placeholder="Search products...">
             <button onclick="globalSearch()">Search</button>
         </div>
@@ -17,22 +18,25 @@
 
     <main id="productGrid" class="main-grid"></main>
 
-    <div id="loader" class="loader">Loading items...</div>
+    <div id="loader" class="loader">Loading...</div>
 
     <nav class="bottom-nav">
-        <div onclick="location.reload()">🏠<br>Home</div>
-        <div onclick="showCart()" style="position:relative;">🛒<br>Cart <span id="cart-count">0</span></div>
-        <div onclick="window.location.href='https://wa.me/964750XXXXXXX'">💬<br>Chat</div>
+        <div class="nav-item" onclick="location.reload()">🏠<br>Home</div>
+        <div class="nav-item" onclick="showCart()" style="position:relative;">
+            🛒<br>Cart <span id="cart-count">0</span>
+        </div>
+        <div class="nav-item" onclick="window.location.href='https://wa.me/964750XXXXXXX'">💬<br>Chat</div>
     </nav>
 
     <div id="cartModal" class="modal">
         <div class="modal-content">
             <h3>Shopping Cart</h3>
             <div id="cart-items"></div>
-            <hr>
-            <h4>Total: <span id="total-price">0</span> USDT</h4>
-            <button class="pay-btn" onclick="checkout()">Send Order via WhatsApp</button>
-            <button onclick="closeCart()">Close</button>
+            <div class="total-section">
+                <h4>Total: <span id="total-price">0</span> USDT</h4>
+                <button class="pay-btn" onclick="checkout()">Send via WhatsApp</button>
+                <button class="close-btn" onclick="closeCart()">Close</button>
+            </div>
         </div>
     </div>
 

@@ -1,60 +1,41 @@
-<!DOCTYPE html>
-<html lang="ku" dir="ltr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AutoSteam | Global Store</title>
-    
-    <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#ff6a00">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-</head>
-<body>
-
-    <header class="top-nav">
-        <div class="logo">Auto<span>Steam</span></div>
-        
-        <div class="search-box">
-            <input type="text" id="mainSearch" placeholder="Search product..." oninput="debounceSearch()">
-            <button onclick="globalSearch()">🔍</button>
-        </div>
-
-        <div class="category-scroll">
-            <div class="cat-item" onclick="quickSearch('Gaming')">🎮 Gaming</div>
-            <div class="cat-item" onclick="quickSearch('Apple')">🍎 Apple</div>
-            <div class="cat-item" onclick="quickSearch('Laptops')">💻 Laptops</div>
-            <div class="cat-item" onclick="quickSearch('Watches')">⌚ Watches</div>
-            <div class="cat-item" onclick="quickSearch('Gadgets')">🚀 Gadgets</div>
-        </div>
-    </header>
-
-    <main id="productGrid" class="main-grid"></main>
-
-    <div id="loader" class="loader">Loading...</div>
-
-    <nav class="bottom-nav">
-        <div class="nav-item" onclick="location.reload()">🏠<br>Home</div>
-        <div class="nav-item" onclick="showCart()" style="position:relative;">
-            🛒<br>Cart <span id="cart-count">0</span>
-        </div>
-        <div class="nav-item" onclick="window.location.href='https://wa.me/964750XXXXXXX'">💬<br>Chat</div>
-    </nav>
-
-    <div id="cartModal" class="modal">
-        <div class="modal-content">
-            <h3>Shopping Cart</h3>
-            <div id="cart-items"></div>
-            <div class="total-section">
-                <hr>
-                <h4>Total: <span id="total-price">0</span> USDT</h4>
-                <button class="pay-btn" onclick="checkout()">Send via WhatsApp</button>
-                <button class="close-btn" onclick="closeCart()">Close</button>
+<header class="top-nav">
+    <div class="search-container">
+        <div class="search-bar-wrapper">
+            <span class="back-arrow">‹</span>
+            <div class="search-input-group">
+                <input type="text" id="mainSearch" placeholder="Search products" onfocus="openSearchPanel()" oninput="handleLiveSearch()">
+                <span class="camera-icon">📷</span>
             </div>
+            <button class="search-btn">🔍</button>
         </div>
     </div>
+</header>
 
-    <script src="config.js"></script>
-    <script src="app.js"></script>
-</body>
-</html>
+<div id="searchPanel" class="amazon-search-panel">
+    <div class="panel-row clickable" onclick="toggleCategories()">
+        <span class="label">Browse categories</span>
+        <span class="arrow">›</span>
+    </div>
+
+    <div class="panel-section">
+        <div class="section-header">
+            <span>Recent searches</span>
+            <span class="trash-icon" onclick="clearHistory()">🗑️</span>
+        </div>
+        <div id="recentList" class="history-items">
+            </div>
+        <div class="more-btn">More <span>⌵</span></div>
+    </div>
+
+    <div class="panel-section">
+        <div class="section-header">
+            <span>Recommended for you</span>
+            <span class="refresh-icon">🔄 Change</span>
+        </div>
+        <div class="recommend-items">
+            <p onclick="quickSearch('new arrivals clothes')">new arrivals clothes</p>
+            <p onclick="quickSearch('shoes vietnam')">shoes vietnam</p>
+            <p onclick="quickSearch('white shoes')">white shoes</p>
+        </div>
+    </div>
+</div>

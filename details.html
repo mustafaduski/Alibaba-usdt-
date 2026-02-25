@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | AutoSteam</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .details-container { max-width: 1100px; margin: 50px auto; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; background: #fff; padding: 30px; border-radius: 15px; }
+        .product-img-large { width: 100%; border-radius: 10px; border: 1px solid #eee; }
+        .info-section h1 { font-size: 24px; color: #333; }
+        .price-big { font-size: 32px; color: #e62e04; font-weight: bold; margin: 20px 0; }
+        .specs { margin: 20px 0; line-height: 1.6; color: #666; }
+        .buy-now-big { background: #ff6a00; color: white; border: none; padding: 15px 40px; font-size: 18px; border-radius: 5px; cursor: pointer; width: 100%; }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <div class="logo" onclick="window.location.href='index.html'" style="cursor:pointer">Auto<span>Steam</span></div>
+    </nav>
+
+    <div class="details-container" id="detailsPage">
+        <p>Loading product information...</p>
+    </div>
+
+    <script src="config.js"></script>
+    <script>
+        // وەرگرتنی زانیارییەکان لە URL
+        const params = new URLSearchParams(window.location.search);
+        const name = params.get('name');
+        const price = params.get('price');
+        const img = params.get('img');
+
+        document.getElementById('detailsPage').innerHTML = `
+            <img src="${img}" class="product-img-large">
+            <div class="info-section">
+                <h1>${name}</h1>
+                <div class="price-big">$${price} USDT</div>
+                <div class="specs">
+                    <p>• Verified Supplier: AutoSteam Global</p>
+                    <p>• Shipping: Worldwide Express</p>
+                    <p>• Quality: Industrial Grade A++</p>
+                    <p>• Payment: Secure USDT (TRC20)</p>
+                </div>
+                <button class="buy-now-big" onclick="alert('Proceeding to USDT payment for: ${price} USDT')">Order Now</button>
+            </div>
+        `;
+    </script>
+</body>
+</html>

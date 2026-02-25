@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoSteam Global | Wholesale Marketplace</title>
+    <title>AutoSteam Global | AI Powered Marketplace</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -13,34 +13,37 @@
         <div class="nav-container">
             <div class="logo">Auto<span>Steam</span></div>
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search Alibaba products...">
-                <button onclick="performSearch()">Search</button>
+                <input type="text" id="searchInput" placeholder="Search for any product on Alibaba...">
+                <button id="searchBtn">Find Products</button>
             </div>
-            <div class="usdt-tag">TRC20 ACCEPTED ₿</div>
+            <div class="user-action">
+                <span class="crypto-badge">USDT (TRC20)</span>
+            </div>
         </div>
     </header>
 
-    <main class="main-layout">
-        <section class="marketplace">
-            <div id="productGrid" class="grid-container">
-                </div>
-            <div id="loading" class="loader">Loading more products...</div>
-        </section>
-    </main>
+    <div class="container">
+        <div id="productGrid" class="grid-container">
+            </div>
+        <div id="loader" class="loading-state">
+            <div class="spinner"></div>
+            <p>Fetching latest products...</p>
+        </div>
+    </div>
 
     <div id="paymentModal" class="modal">
         <div class="modal-content">
             <span class="close" onclick="closeModal()">&times;</span>
-            <h3 id="modalTitle">Product Name</h3>
-            <p>Price: <span id="modalPrice">0.00</span> USDT</p>
-            <div class="qr-code">
-                <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=TVWRheHD5zVeXeF3jnWpZrVunaTGLZza3i" alt="QR">
+            <h2 id="modalTitle">Product</h2>
+            <div class="price-tag"><span id="modalPrice">0.00</span> USDT</div>
+            <div class="qr-container">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=TVWRheHD5zVeXeF3jnWpZrVunaTGLZza3i" alt="QR Code">
             </div>
-            <div class="wallet-box">
-                <code id="walletAddr">TVWRheHD5zVeXeF3jnWpZrVunaTGLZza3i</code>
+            <div class="wallet-info">
+                <code>TVWRheHD5zVeXeF3jnWpZrVunaTGLZza3i</code>
                 <button onclick="copyAddr()">Copy</button>
             </div>
-            <small>Send screenshot to support for order processing.</small>
+            <p class="note">Only send USDT via TRC20 network</p>
         </div>
     </div>
 

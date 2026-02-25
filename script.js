@@ -1,51 +1,72 @@
-// لیستی بەرهەمەکان - دەتوانی ١٠٠٠ دانە لێرە زیاد بکەیت
-const products = [
-    {
-        name: "AutoSteam Pro V2 - High Pressure Industrial",
-        price: "79.99",
-        image: "product.png"
-    },
-    {
-        name: "Portable Travel Steamer 1500W Professional",
-        price: "45.00",
-        image: "https://sc04.alicdn.com/kf/HTB1.V8mXvfsK1RjSszgq6y8BXXaY.jpg"
-    },
-    {
-        name: "Smart Laundry Hanger with UV Protection",
-        price: "120.50",
-        image: "https://sc04.alicdn.com/kf/H983675e4e84b4c73a817478052163b45O.jpg"
+const apiKey = '8bd9f77f24msh18b6dadd5d8b7f8p17258ajsn5ad908cd38f9';
+const apiHost = 'alibaba-datahub.p.rapidapi.com';
+let currentPage = 1;
+let isFetching = false;
+
+async function fetchProducts(page) {
+    if (isFetching) return;
+    isFetching = true;
+    document.getElementById('loading').style.display = 'block';
+
+    const url = `https://${apiHost}/item_search?q=smart%20home&page=${page}`;
+    
+    try {
+        const response = await fetch(url, {
+            method: 'GET',
+            headers: { 'X-RapidAPI-Key': apiKey, 'X-RapidAPI-Host': apiHost }
+        });
+        const result = await response.json();
+        
+        if (result.data && result.data.items) {
+            displayItems(result.data.items);
+        }
+    } catch (error) {
+        console.error("API Error:", error);
+    } finally {
+        isFetching = false;
+        document.getElementById('loading').style.display = 'none';
     }
-];
+}
 
-// فەنکشن بۆ دروستکردنی کارتەکان بە ئۆتۆماتیکی
-const grid = document.getElementById('productGrid');
-
-products.forEach(item => {
-    const card = `
-        <div class="card">
-            <img src="${item.image}" alt="Product">
-            <div class="card-info">
-                <h3>${item.name}</h3>
-                <div class="card-price">US $${item.price} <span>/ Piece</span></div>
-                <button class="buy-now" onclick="openOrder('${item.name}', '${item.price}')">Contact & Buy</button>
+function displayItems(items) {
+    const grid = document.getElementById('productGrid');
+    items.forEach(item => {
+        // لێرەدا نرخەکە ١.٥ جار زیاد دەکەین بۆ قازانجی خۆت
+        let myPrice = (parseFloat(item.price) * 1.5).toFixed(2);
+        
+        grid.innerHTML += `
+            <div class="card">
+                <img src="${item.image}" alt="Product">
+                <div class="card-info">
+                    <h3>${item.title}</h3>
+                    <div class="card-price">$${myPrice}</div>
+                    <button class="buy-now" onclick="openOrder('${item.title.replace(/'/g, "")}', '${myPrice}')">Buy with USDT</button>
+                </div>
             </div>
-        </div>
-    `;
-    grid.innerHTML += card;
-});
+        `;
+    });
+}
+
+// سکڕۆڵی بێ کۆتایی
+window.onscroll = function() {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 700) {
+        currentPage++;
+        fetchProducts(currentPage);
+    }
+};
 
 function openOrder(name, price) {
     document.getElementById('modalTitle').innerText = name;
-    document.getElementById('qrImg').src = `https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=TVWRheHD5zVeXeF3jnWpZrVunaTGLZza3i&color=ff6a00`;
+    document.getElementById('modalPrice').innerText = price;
     document.getElementById('paymentModal').style.display = 'flex';
 }
 
-function closeModal() {
-    document.getElementById('paymentModal').style.display = 'none';
-}
+function closeModal() { document.getElementById('paymentModal').style.display = 'none'; }
 
 function copyAddr() {
-    const addr = document.getElementById('walletAddr').innerText;
-    navigator.clipboard.writeText(addr);
-    alert("USDT TRC20 Address Copied!");
+    navigator.clipboard.writeText(document.getElementById('walletAddr').innerText);
+    alert("Address Copied!");
 }
+
+// دەستپێکردن
+fetchProducts(currentPage);

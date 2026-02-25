@@ -9,41 +9,42 @@
     <link rel="manifest" href="manifest.json">
     <meta name="theme-color" content="#ff6a00">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 
     <header class="top-nav">
         <div class="logo">Auto<span>Steam</span></div>
+        
         <div class="search-box">
-            <input type="text" id="mainSearch" placeholder="Search products...">
-            <button onclick="globalSearch()">Search</button>
+            <input type="text" id="mainSearch" placeholder="Search product..." oninput="debounceSearch()">
+            <button onclick="globalSearch()">🔍</button>
+        </div>
+
+        <div class="category-scroll">
+            <div class="cat-item" onclick="quickSearch('Gaming')">🎮 Gaming</div>
+            <div class="cat-item" onclick="quickSearch('Apple')">🍎 Apple</div>
+            <div class="cat-item" onclick="quickSearch('Laptops')">💻 Laptops</div>
+            <div class="cat-item" onclick="quickSearch('Watches')">⌚ Watches</div>
+            <div class="cat-item" onclick="quickSearch('Gadgets')">🚀 Gadgets</div>
         </div>
     </header>
 
-    <main id="productGrid" class="main-grid">
-        </main>
+    <main id="productGrid" class="main-grid"></main>
 
     <div id="loader" class="loader">Loading...</div>
 
     <nav class="bottom-nav">
-        <div class="nav-item" onclick="location.reload()">
-            <span>🏠</span><br>Home
-        </div>
+        <div class="nav-item" onclick="location.reload()">🏠<br>Home</div>
         <div class="nav-item" onclick="showCart()" style="position:relative;">
-            <span>🛒</span><br>Cart 
-            <span id="cart-count">0</span>
+            🛒<br>Cart <span id="cart-count">0</span>
         </div>
-        <div class="nav-item" onclick="window.location.href='https://wa.me/964750XXXXXXX'">
-            <span>💬</span><br>Chat
-        </div>
+        <div class="nav-item" onclick="window.location.href='https://wa.me/964750XXXXXXX'">💬<br>Chat</div>
     </nav>
 
     <div id="cartModal" class="modal">
         <div class="modal-content">
             <h3>Shopping Cart</h3>
-            <div id="cart-items">
-                </div>
+            <div id="cart-items"></div>
             <div class="total-section">
                 <hr>
                 <h4>Total: <span id="total-price">0</span> USDT</h4>
@@ -55,6 +56,5 @@
 
     <script src="config.js"></script>
     <script src="app.js"></script>
-    
 </body>
 </html>

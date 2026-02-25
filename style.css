@@ -1,32 +1,40 @@
-:root { --primary: #ff6a00; --bg: #f4f4f4; }
-body { font-family: 'Roboto', sans-serif; background: var(--bg); margin: 0; }
+:root {
+    --primary: #ff6a00;
+    --dark: #1a1a1a;
+    --gray: #f8f9fa;
+}
 
-.alibaba-header { background: #fff; border-bottom: 2px solid var(--primary); padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
-.nav-container { max-width: 1200px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
-.logo { font-size: 1.5rem; font-weight: bold; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--gray); margin: 0; color: var(--dark); }
+
+.alibaba-header { background: #fff; padding: 15px 0; border-bottom: 1px solid #eee; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+.nav-container { max-width: 1200px; margin: auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
+.logo { font-size: 1.8rem; font-weight: 800; }
 .logo span { color: var(--primary); }
 
-.search-box { flex: 0.6; display: flex; }
-.search-box input { width: 100%; padding: 10px; border: 2px solid var(--primary); border-radius: 4px 0 0 4px; outline: none; }
-.search-box button { background: var(--primary); color: white; border: none; padding: 0 20px; border-radius: 0 4px 4px 0; cursor: pointer; }
+.search-box { flex: 0.6; display: flex; background: #f0f0f0; border-radius: 50px; padding: 5px 15px; }
+.search-box input { border: none; background: none; width: 100%; padding: 10px; outline: none; font-size: 1rem; }
+.search-box button { background: var(--primary); color: white; border: none; padding: 10px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; }
 
-.grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; padding: 20px; max-width: 1200px; margin: auto; }
+.grid-container { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; padding: 30px 20px; max-width: 1200px; margin: auto; }
 
-.card { background: white; border-radius: 8px; overflow: hidden; border: 1px solid #ddd; transition: 0.3s; }
-.card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-.card img { width: 100%; height: 180px; object-fit: cover; }
-.card-info { padding: 12px; }
-.card-info h3 { font-size: 0.85rem; height: 35px; overflow: hidden; margin: 0; }
-.card-price { color: #e62e04; font-size: 1.1rem; font-weight: bold; margin: 10px 0; }
+.card { background: #fff; border-radius: 15px; overflow: hidden; border: 1px solid #eee; transition: 0.3s; position: relative; }
+.card:hover { transform: translateY(-8px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); }
+.card img { width: 100%; height: 220px; object-fit: cover; background: #fff; }
 
-.buy-now { width: 100%; padding: 8px; border: 1px solid var(--primary); background: #fff; color: var(--primary); border-radius: 20px; cursor: pointer; font-weight: bold; }
-.buy-now:hover { background: var(--primary); color: #fff; }
+.card-info { padding: 15px; }
+.card-info h3 { font-size: 0.9rem; margin: 0 0 10px; height: 40px; overflow: hidden; color: #444; }
+.card-price { font-size: 1.3rem; font-weight: 800; color: #e62e04; }
 
-.modal { display: none; position: fixed; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; z-index: 2000; }
-.modal-content { background: #fff; padding: 25px; border-radius: 15px; text-align: center; width: 90%; max-width: 350px; }
-.wallet-box { background: #f0f0f0; padding: 10px; margin: 15px 0; display: flex; justify-content: space-between; font-size: 0.7rem; }
+.buy-btn { width: 100%; margin-top: 15px; padding: 12px; background: var(--primary); color: white; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; }
 
-@media (max-width: 600px) {
-    .grid-container { grid-template-columns: repeat(2, 1fr); padding: 10px; }
-    .search-box { display: none; } /* دەتوانی دواتر سێرچی مۆبایل چاک بکەیت */
+.loading-state { text-align: center; padding: 40px; }
+.spinner { width: 40px; height: 40px; border: 4px solid #f3f3f3; border-top: 4px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: auto; }
+@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; }
+.modal-content { background: white; padding: 30px; border-radius: 20px; text-align: center; max-width: 400px; width: 90%; }
+
+@media (max-width: 768px) {
+    .grid-container { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 10px; }
+    .search-box { display: none; }
 }

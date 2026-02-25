@@ -1,50 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ku">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoSteam | Global Trade Platform</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AutoSteam Global</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="top-nav">
-        <div class="logo">Auto<span>Steam</span>.com</div>
+    <header class="top-nav">
+        <div class="logo">Auto<span>Steam</span></div>
         <div class="search-container">
-            <input type="text" id="mainSearch" placeholder="Search for products, brands, or categories...">
+            <input type="text" id="mainSearch" placeholder="Search products...">
             <button onclick="globalSearch()">Search</button>
         </div>
+    </header>
+
+    <main id="productGrid" class="main-grid"></main>
+
+    <div id="loader" class="loader">Loading items...</div>
+
+    <nav class="bottom-nav">
+        <div onclick="location.reload()">🏠<br>Home</div>
+        <div onclick="showCart()" style="position:relative;">🛒<br>Cart <span id="cart-count">0</span></div>
+        <div onclick="window.location.href='https://wa.me/964750XXXXXXX'">💬<br>Chat</div>
     </nav>
 
-    <div class="alibaba-layout">
-        <aside class="categories-sidebar">
-            <h3>Categories</h3>
-            <ul id="catList">
-                <li onclick="filterBy('Electronics')">Consumer Electronics</li>
-                <li onclick="filterBy('Apparel')">Apparel & Accessories</li>
-                <li onclick="filterBy('Home')">Home & Garden</li>
-                <li onclick="filterBy('Tools')">Industrial Tools</li>
-            </ul>
-        </aside>
-
-        <section class="feed">
-            <div id="productGrid" class="main-grid"></div>
-            <div id="scrollTrigger" class="loading">Loading more items...</div>
-        </section>
-    </div>
-
-    <div id="payModal" class="modal">
+    <div id="cartModal" class="modal">
         <div class="modal-content">
-            <h2 id="pName"></h2>
-            <p id="pPrice"></p>
-            <div id="qrcode"></div>
-            <code id="wallet">TVWRheHD5zVeXeF3jnWpZrVunaTGLZza3i</code>
-            <button onclick="copyWallet()">Copy Address</button>
-            <button onclick="closeModal()">Close</button>
+            <h3>Shopping Cart</h3>
+            <div id="cart-items"></div>
+            <hr>
+            <h4>Total: <span id="total-price">0</span> USDT</h4>
+            <button class="pay-btn" onclick="checkout()">Send Order via WhatsApp</button>
+            <button onclick="closeCart()">Close</button>
         </div>
     </div>
 
     <script src="config.js"></script>
-    <script src="api.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

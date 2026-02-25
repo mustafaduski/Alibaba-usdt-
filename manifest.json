@@ -1,0 +1,17 @@
+{
+  "short_name": "AutoSteam",
+  "name": "AutoSteam Global Store",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3081/3081559.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "index.html",
+  "background_color": "#f8f9fa",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#ff6a00",
+  "description": "AutoSteam - Shop globally with USDT"
+}

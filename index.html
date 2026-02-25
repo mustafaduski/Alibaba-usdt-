@@ -4,7 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AutoSteam | Global Store</title>
+    
     <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ff6a00">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
 <body>
 
@@ -16,23 +21,31 @@
         </div>
     </header>
 
-    <main id="productGrid" class="main-grid"></main>
+    <main id="productGrid" class="main-grid">
+        </main>
 
     <div id="loader" class="loader">Loading...</div>
 
     <nav class="bottom-nav">
-        <div class="nav-item" onclick="location.reload()">🏠<br>Home</div>
-        <div class="nav-item" onclick="showCart()" style="position:relative;">
-            🛒<br>Cart <span id="cart-count">0</span>
+        <div class="nav-item" onclick="location.reload()">
+            <span>🏠</span><br>Home
         </div>
-        <div class="nav-item" onclick="window.location.href='https://wa.me/964750XXXXXXX'">💬<br>Chat</div>
+        <div class="nav-item" onclick="showCart()" style="position:relative;">
+            <span>🛒</span><br>Cart 
+            <span id="cart-count">0</span>
+        </div>
+        <div class="nav-item" onclick="window.location.href='https://wa.me/964750XXXXXXX'">
+            <span>💬</span><br>Chat
+        </div>
     </nav>
 
     <div id="cartModal" class="modal">
         <div class="modal-content">
             <h3>Shopping Cart</h3>
-            <div id="cart-items"></div>
+            <div id="cart-items">
+                </div>
             <div class="total-section">
+                <hr>
                 <h4>Total: <span id="total-price">0</span> USDT</h4>
                 <button class="pay-btn" onclick="checkout()">Send via WhatsApp</button>
                 <button class="close-btn" onclick="closeCart()">Close</button>
@@ -42,5 +55,6 @@
 
     <script src="config.js"></script>
     <script src="app.js"></script>
+    
 </body>
 </html>

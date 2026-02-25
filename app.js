@@ -1,44 +1,45 @@
 let page = 1;
-let currentTerm = 'smart technology'; // گەڕانی سەرەتایی کاتێک سایتەکە دەکرێتەوە
+let currentTerm = 'electronics'; 
 let loading = false;
 
-// فەنکشنی سەرەکی بۆ دەستپێکردن و هێنانی داتا
 async function init(term, isNew = false) {
     if (loading) return;
     loading = true;
     
-    // پیشاندانی لۆدەر (Loading)
+    const grid = document.getElementById('productGrid');
     const loader = document.getElementById('scrollTrigger');
-    if(loader) loader.style.display = 'block';
+    
+    if (isNew) grid.innerHTML = '<p style="padding:20px">Searching...</p>';
+    if (loader) loader.innerText = "Connecting to Alibaba...";
 
-    const data = await getAlibabaData(term, page);
-    
-    if (data && data.data && data.data.items) {
-        renderItems(data.data.items, isNew);
-    } else {
-        console.error("No data found from API");
+    try {
+        const data = await getAlibabaData(term, page);
+        
+        if (data && data.data && data.data.items && data.data.items.length > 0) {
+            renderItems(data.data.items, isNew);
+            if (loader) loader.innerText = "Scroll for more";
+        } else {
+            if (loader) loader.innerText = "No products found. Try another search.";
+        }
+    } catch (err) {
+        if (loader) loader.innerText = "Error: Check your API Key limit.";
+    } finally {
+        loading = false;
     }
-    
-    loading = false;
-    if(loader) loader.style.display = 'none';
 }
 
-// دروستکردنی کارتەکان لەسەر شاشە
 function renderItems(items, isNew) {
     const grid = document.getElementById('productGrid');
-    if (isNew) grid.innerHTML = ''; // ئەگەر گەڕانێکی نوێ بێت، لیستی کۆن پاک بکەرەوە
+    if (isNew) grid.innerHTML = '';
 
     items.forEach(item => {
-        // حیسابکردنی نرخ لەگەڵ قازانج بەپێی ئەوەی لە config.js دامانناوە
-        let finalPrice = (parseFloat(item.price) * CONFIG.PROFIT_MARGIN).toFixed(2);
-        
-        // چاککردنی وێنەکان
-        let img = item.image;
+        let finalPrice = (parseFloat(item.price || 0) * CONFIG.PROFIT_MARGIN).toFixed(2);
+        let img = item.image || 'https://placehold.co/400x400?text=No+Image';
         if (img.startsWith('//')) img = 'https:' + img;
 
         grid.innerHTML += `
             <div class="card" onclick="goToDetails('${item.title.replace(/'/g,"")}', '${finalPrice}', '${encodeURIComponent(img)}')">
-                <img src="${img}" alt="Product" onerror="this.src='https://placehold.co/400x400?text=No+Image'">
+                <img src="${img}" alt="Product">
                 <div class="card-info">
                     <h4>${item.title}</h4>
                     <div class="price">$${finalPrice} USDT</div>
@@ -48,12 +49,10 @@ function renderItems(items, isNew) {
     });
 }
 
-// ناردنی کڕیار بۆ لاپەڕەی وردەکاری (Details)
 function goToDetails(name, price, img) {
     window.location.href = `details.html?name=${encodeURIComponent(name)}&price=${price}&img=${img}`;
 }
 
-// مەکینەی گەڕانی جیهانی (Global Search)
 function globalSearch() {
     const searchVal = document.getElementById('mainSearch').value;
     if (searchVal.trim() !== "") {
@@ -63,9 +62,8 @@ function globalSearch() {
     }
 }
 
-// سیستەمی سکڕۆڵی بێ کۆتایی (Infinite Scroll)
 window.onscroll = () => {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 800) {
         if (!loading) {
             page++;
             init(currentTerm);
@@ -73,5 +71,5 @@ window.onscroll = () => {
     }
 };
 
-// دەستپێکردنی ئۆتۆماتیکی
-init(currentTerm);
+// دەستپێکردن کاتێک پەیجەکە لۆد دەبێت
+window.onload = () => init(currentTerm);

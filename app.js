@@ -1,5 +1,5 @@
 let page = 1;
-let currentTerm = 'electronics'; 
+let currentTerm = 'gadgets'; 
 let loading = false;
 
 async function init(term, isNew = false) {
@@ -7,25 +7,14 @@ async function init(term, isNew = false) {
     loading = true;
     
     const grid = document.getElementById('productGrid');
-    const loader = document.getElementById('scrollTrigger');
-    
-    if (isNew) grid.innerHTML = '<p style="padding:20px">Searching...</p>';
-    if (loader) loader.innerText = "Connecting to Alibaba...";
+    if (isNew) grid.innerHTML = '<p>Searching Amazon...</p>';
 
-    try {
-        const data = await getAlibabaData(term, page);
-        
-        if (data && data.data && data.data.items && data.data.items.length > 0) {
-            renderItems(data.data.items, isNew);
-            if (loader) loader.innerText = "Scroll for more";
-        } else {
-            if (loader) loader.innerText = "No products found. Try another search.";
-        }
-    } catch (err) {
-        if (loader) loader.innerText = "Error: Check your API Key limit.";
-    } finally {
-        loading = false;
+    const data = await getAlibabaData(term, page);
+    
+    if (data && data.data.items) {
+        renderItems(data.data.items, isNew);
     }
+    loading = false;
 }
 
 function renderItems(items, isNew) {
@@ -33,13 +22,10 @@ function renderItems(items, isNew) {
     if (isNew) grid.innerHTML = '';
 
     items.forEach(item => {
-        let finalPrice = (parseFloat(item.price || 0) * CONFIG.PROFIT_MARGIN).toFixed(2);
-        let img = item.image || 'https://placehold.co/400x400?text=No+Image';
-        if (img.startsWith('//')) img = 'https:' + img;
-
+        let finalPrice = (parseFloat(item.price) * CONFIG.PROFIT_MARGIN).toFixed(2);
         grid.innerHTML += `
-            <div class="card" onclick="goToDetails('${item.title.replace(/'/g,"")}', '${finalPrice}', '${encodeURIComponent(img)}')">
-                <img src="${img}" alt="Product">
+            <div class="card" onclick="goToDetails('${item.title.replace(/'/g,"")}', '${finalPrice}', '${encodeURIComponent(item.image)}')">
+                <img src="${item.image}" alt="Product">
                 <div class="card-info">
                     <h4>${item.title}</h4>
                     <div class="price">$${finalPrice} USDT</div>
@@ -63,7 +49,7 @@ function globalSearch() {
 }
 
 window.onscroll = () => {
-    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 800) {
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000) {
         if (!loading) {
             page++;
             init(currentTerm);
@@ -71,5 +57,4 @@ window.onscroll = () => {
     }
 };
 
-// دەستپێکردن کاتێک پەیجەکە لۆد دەبێت
 window.onload = () => init(currentTerm);
